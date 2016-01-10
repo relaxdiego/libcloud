@@ -34,8 +34,10 @@ class DimensionDataTests(unittest.TestCase, TestCaseMixin):
         self.driver = DimensionData(*DIMENSIONDATA_PARAMS)
 
     def test_invalid_region(self):
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ValueError) as err:
             self.driver = DimensionData(*DIMENSIONDATA_PARAMS, region='blah')
+
+        self.assertEqual('Invalid region: blah', str(err.exception))
 
     def test_invalid_creds(self):
         DimensionDataMockHttp.type = 'UNAUTHORIZED'
